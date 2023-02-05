@@ -61,7 +61,7 @@ public abstract class CodeExecutor {
       throw new RuntimeException("출력 결과를 읽기 데 실패했습니다.");
     }
 
-    return sb.toString();
+    return sb.toString().trim();
   }
 
   protected abstract String getCommand();

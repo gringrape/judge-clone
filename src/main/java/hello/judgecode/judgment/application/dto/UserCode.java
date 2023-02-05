@@ -1,4 +1,4 @@
-package hello.judgecode.judgment.application;
+package hello.judgecode.judgment.application.dto;
 
 import hello.judgecode.judgment.domain.CodeType;
 

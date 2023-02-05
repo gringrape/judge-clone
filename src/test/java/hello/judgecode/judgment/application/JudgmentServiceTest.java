@@ -2,8 +2,10 @@ package hello.judgecode.judgment.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import hello.judgecode.judgment.application.dto.UserCode;
 import hello.judgecode.judgment.domain.Challenge;
 import hello.judgecode.judgment.domain.ChallengeRepository;
+import hello.judgecode.judgment.domain.ChallengeService;
 import hello.judgecode.judgment.domain.CodeType;
 import hello.judgecode.judgment.infra.MemoryChallengeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,13 +17,15 @@ class JudgmentServiceTest {
   private static final String SUCCESS_MESSAGE = "테스트 성공";
   private static final String FAIL_MESSAGE = "테스트 실패";
   private static final String ERROR_MESSAGE = "오류 발생";
-  JudgmentService judgmentService;
+  JudgmentApplicationService judgmentService;
   ChallengeRepository challengeRepository;
+  ChallengeService challengeService;
 
   @BeforeEach
   void setUp() {
     challengeRepository = new MemoryChallengeRepository();
-    judgmentService = new JudgmentService(challengeRepository);
+    challengeService = new ChallengeService(challengeRepository);
+    judgmentService = new JudgmentApplicationService(challengeService);
   }
 
   @Test

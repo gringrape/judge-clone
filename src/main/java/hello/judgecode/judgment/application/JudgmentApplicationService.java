@@ -1,7 +1,7 @@
 package hello.judgecode.judgment.application;
 
-import hello.judgecode.judgment.domain.Challenge;
-import hello.judgecode.judgment.domain.ChallengeRepository;
+import hello.judgecode.judgment.application.dto.UserCode;
+import hello.judgecode.judgment.domain.ChallengeService;
 import hello.judgecode.judgment.domain.CodeType;
 import hello.judgecode.judgment.executor.CodeExecutor;
 import hello.judgecode.judgment.executor.JavaCodeExecutor;
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class JudgmentService {
+public class JudgmentApplicationService {
 
-  private final ChallengeRepository challengeRepository;
+  private final ChallengeService challengeService;
 
   public String judgeCode(Long challengeId, UserCode userCode) {
-    var challenge = getChallenge(challengeId);
+    var challenge = challengeService.getChallenge(challengeId);
     var executor = getExecutor(userCode);
     var message = executor.executeCode(userCode.code());
     return judge(message, challenge.result());
@@ -36,10 +36,5 @@ public class JudgmentService {
     return userCode.codeType().equals(CodeType.JAVA)
         ? new JavaCodeExecutor()
         : new PythonCodeExecutor();
-  }
-
-  private Challenge getChallenge(Long challengeId) {
-    return challengeRepository.findById(challengeId)
-        .orElseThrow(() -> new RuntimeException("문제를 찾을 수 없습니다."));
   }
 }

@@ -1,5 +1,5 @@
 package hello.judgecode.judgment.application.dto;
 
-public record ChallengeResponse(Long challengeId, String challengeDescription) {
+public record ChallengeResponse(Long id, String title, String description) {
 
 }

@@ -1,5 +1,6 @@
 package hello.judgecode.judgment.domain;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ChallengeRepository {
@@ -8,4 +9,5 @@ public interface ChallengeRepository {
 
   Optional<Challenge> findById(Long id);
 
+  List<Challenge> findAll();
 }

@@ -16,7 +16,7 @@ public class MemoryChallengeRepository implements ChallengeRepository {
   @Override
   public Challenge save(Challenge challenge) {
     var id = ++sequence;
-    Challenge savedChallenge = new Challenge(id, challenge.result());
+    Challenge savedChallenge = new Challenge(id, challenge.description(), challenge.result());
     challenges.put(id, savedChallenge);
     return savedChallenge;
   }

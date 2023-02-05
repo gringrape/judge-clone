@@ -53,12 +53,11 @@ class JudgmentServiceTest {
   @DisplayName("코드를 실행해 결과 메시지를 반환합니다. 의도한 결과가 나왔다면 `테스트 성공`을 반환합니다.")
   void judgeCodeSuccess() {
     // given
-    String actual = "hello";
-    Challenge challenge = getChallenge(actual);
+    Challenge challenge = getChallenge("`hello`를 출력하세요", "hello");
 
     // when
     String message = judgmentService.judgeCode(challenge.id(),
-        new UserCode(CodeType.PYTHON, String.format("print(\"%s\")", actual)));
+        new UserCode(CodeType.PYTHON, String.format("print(\"%s\")", "hello")));
 
     // then
     assertThat(message).isEqualTo(SUCCESS_MESSAGE);
@@ -69,7 +68,7 @@ class JudgmentServiceTest {
   void judgeCodeFail() {
     // given
     String incorrectCode = "No Hello";
-    Challenge challenge = getChallenge("hello");
+    Challenge challenge = getChallenge("`hello`를 출력하세요", "hello");
 
     // when
     String message = judgmentService.judgeCode(challenge.id(),
@@ -84,7 +83,7 @@ class JudgmentServiceTest {
   void judgeCodeThrowError() {
     // given
     String exceptionCode = "0/0";
-    Challenge challenge = getChallenge("hello");
+    Challenge challenge = getChallenge("`hello`를 출력하세요", "hello");
 
     // when
     String message = judgmentService.judgeCode(challenge.id(),
@@ -94,8 +93,8 @@ class JudgmentServiceTest {
     assertThat(message).isEqualTo(ERROR_MESSAGE);
   }
 
-  private Challenge getChallenge(String answer) {
-    return challengeRepository.save(new Challenge(answer));
+  private Challenge getChallenge(String description, String answer) {
+    return challengeRepository.save(new Challenge(description, answer));
   }
 
   private String judge(String result, String answer) {

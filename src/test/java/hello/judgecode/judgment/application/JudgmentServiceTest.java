@@ -2,7 +2,7 @@ package hello.judgecode.judgment.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import hello.judgecode.judgment.application.dto.UserCode;
+import hello.judgecode.judgment.application.dto.UserCodeRequest;
 import hello.judgecode.judgment.domain.Challenge;
 import hello.judgecode.judgment.domain.ChallengeRepository;
 import hello.judgecode.judgment.domain.ChallengeService;
@@ -61,7 +61,7 @@ class JudgmentServiceTest {
 
     // when
     String message = judgmentService.judgeCode(challenge.id(),
-        new UserCode(CodeType.PYTHON, String.format("print(\"%s\")", "hello")));
+        new UserCodeRequest(CodeType.PYTHON, String.format("print(\"%s\")", "hello")));
 
     // then
     assertThat(message).isEqualTo(SUCCESS_MESSAGE);
@@ -76,7 +76,7 @@ class JudgmentServiceTest {
 
     // when
     String message = judgmentService.judgeCode(challenge.id(),
-        new UserCode(CodeType.PYTHON, String.format("print(\"%s\")", incorrectCode)));
+        new UserCodeRequest(CodeType.PYTHON, String.format("print(\"%s\")", incorrectCode)));
 
     // then
     assertThat(message).isEqualTo(FAIL_MESSAGE);
@@ -91,7 +91,7 @@ class JudgmentServiceTest {
 
     // when
     String message = judgmentService.judgeCode(challenge.id(),
-        new UserCode(CodeType.PYTHON, String.format("print(%s)", exceptionCode)));
+        new UserCodeRequest(CodeType.PYTHON, String.format("print(%s)", exceptionCode)));
 
     // then
     assertThat(message).isEqualTo(ERROR_MESSAGE);

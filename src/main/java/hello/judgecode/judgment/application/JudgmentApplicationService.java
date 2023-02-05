@@ -1,6 +1,6 @@
 package hello.judgecode.judgment.application;
 
-import hello.judgecode.judgment.application.dto.UserCode;
+import hello.judgecode.judgment.application.dto.UserCodeRequest;
 import hello.judgecode.judgment.domain.ChallengeService;
 import hello.judgecode.judgment.domain.CodeType;
 import hello.judgecode.judgment.executor.CodeExecutor;
@@ -15,7 +15,7 @@ public class JudgmentApplicationService {
 
   private final ChallengeService challengeService;
 
-  public String judgeCode(Long challengeId, UserCode userCode) {
+  public String judgeCode(Long challengeId, UserCodeRequest userCode) {
     var challenge = challengeService.getChallenge(challengeId);
     var executor = getExecutor(userCode);
     var message = executor.executeCode(userCode.code());
@@ -32,7 +32,7 @@ public class JudgmentApplicationService {
     return "테스트 실패";
   }
 
-  private CodeExecutor getExecutor(UserCode userCode) {
+  private CodeExecutor getExecutor(UserCodeRequest userCode) {
     return userCode.codeType().equals(CodeType.JAVA)
         ? new JavaCodeExecutor()
         : new PythonCodeExecutor();

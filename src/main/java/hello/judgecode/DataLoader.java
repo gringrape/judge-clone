@@ -19,27 +19,27 @@ public class DataLoader {
   public void loadData() {
     challengeRepository.save(new Challenge("Hello World!",
         """
-        `Hello World!`를 출력해주세요!
-        ### 입력
-        ```
-        입력이 없습니다.
-        ```
-        ### 출력
-        ```
-        Hello World!
-        ```""",
+            `Hello World!`를 출력해주세요!
+            ### 입력
+            ```
+            입력이 없습니다.
+            ```
+            ### 출력
+            ```
+            Hello World!
+            ```""",
         "Hello World!"));
     challengeRepository.save(new Challenge("출력해보자!",
         """
-        `Hi`를 출력해주세요!
-        ### 입력
-        ```
-        입력이 없습니다.
-        ```
-        ### 출력
-        ```
-        Hi
-        ```""",
+            `Hi`를 출력해주세요!
+            ### 입력
+            ```
+            입력이 없습니다.
+            ```
+            ### 출력
+            ```
+            Hi
+            ```""",
         "Hi"));
   }
 

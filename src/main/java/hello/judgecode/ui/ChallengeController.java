@@ -1,6 +1,5 @@
 package hello.judgecode.ui;
 
-import hello.judgecode.judgment.application.ChallengeApplicationService;
 import hello.judgecode.judgment.application.JudgmentApplicationService;
 import hello.judgecode.judgment.application.dto.UserCodeRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ChallengeController {
 
-  private final ChallengeApplicationService challengeApplicationService;
   private final JudgmentApplicationService judgmentApplicationService;
 
   @PostMapping("{challengeId}")

@@ -2,8 +2,6 @@ package hello.judgecode.judgment.infra;
 
 import hello.judgecode.judgment.domain.Challenge;
 import hello.judgecode.judgment.domain.ChallengeRepository;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +17,8 @@ public class MemoryChallengeRepository implements ChallengeRepository {
   @Override
   public Challenge save(Challenge challenge) {
     var id = ++sequence;
-    Challenge savedChallenge = new Challenge(id, challenge.title(), challenge.description(), challenge.result());
+    Challenge savedChallenge = new Challenge(id, challenge.title(), challenge.description(),
+        challenge.result());
     challenges.put(id, savedChallenge);
     return savedChallenge;
   }

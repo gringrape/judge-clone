@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>챌린지</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+<header>
+  <h2 th:text="${challenge.title()}">제목</h2>
+</header>
+<div>
+  <h3>문제 설명</h3>
+  <!--문제 설명을 가져옵니다.-->
+  <markdown th:text="${challenge.description()}">
+    문제 설명
+  </markdown>
+</div>
+<div>
+  <input type="hidden" name="challenge_id" th:value="${challenge.id()}">
+  <fieldset>
+    <legend>언어를 선택하세요.</legend>
+    <div>
+      <input type="radio" id="JAVA" name="code-type" value="JAVA" checked>
+      <label for="JAVA">Java</label>
+    </div>
+    <div>
+      <input type="radio" id="PYTHON" name="code-type" value="PYTHON">
+      <label for="PYTHON">Python</label>
+    </div>
+  </fieldset>
+  <label>
+    <textarea name="code_area" rows="10" cols="60"></textarea>
+  </label>
+  <button onclick="submit()">제출</button>
+</div>
+
+<script>
+  const text = $('markdown').text(),
+      converter = new showdown.Converter(),
+      html = converter.makeHtml(text);
+  $('markdown').html(html);
+
+  function submit() {
+    console.log("제출!");
+    let id = $('[name=challenge_id]').val();
+    let data = extracted($('[name=code-type]:checked').val(),
+        $('textarea[name=code_area]').val());
+    submit_code(id, data);
+  }
+
+  function extracted(code_type, code) {
+    return {
+      "codeType": code_type,
+      "code": code
+    };
+  }
+
+  function submit_code(id, data) {
+    $.ajax(
+        {
+          url: "/challenges/" + id,
+          type: "POST",
+          dataType:'text',
+          contentType: 'application/json',
+          data: JSON.stringify(data),
+          success: success_call,
+          error: error_call
+        }
+    );
+  }
+
+  function success_call(result) {
+    alert(result);
+  }
+
+  function error_call() {
+    alert("요청 실패");
+  }
+</script>
+</body>
+</html>
